@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Wyniki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+
+    <!--<style>
+        .chart-container {
+            width: 50%;
+            height: 50%;
+
+        }
+    </style>-->
+
+    <script>
+        var chartName ;
+        var chartLabels ;
+        var chartData ;
+        var legend;
+        function generateBarChart(canvasName, labels, dane, legend ) {
+            const ctx = document.getElementById(canvasName).getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels:labels,
+                    datasets: [{
+                        label: legend,
+                        backgroundColor: 'rgb(156,187,239)',
+                        borderColor: 'rgb(108,137,171)',
+                        data: dane,
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                            }
+                        }]
+                    }
+                },
+            })
+        }
+
+        function generatePieChart(canvasName, labels, dane, legend ) {
+            const ctx = document.getElementById(canvasName).getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: legend,
+                        backgroundColor: 'rgb(156,187,239)',
+                        borderColor: 'rgb(108,137,171)',
+                        data: dane,
+                    }]
+                },
+            });
+        }
+
+    </script>
+</head>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+<div class="container mt-5">
+    <fieldset class="form-group border p-4">
+        <legend class="float-none w-auto px-3" th:text="'Wyniki dla ankiety: ' + ${questionnaireName}"></legend>
+        <!--<form action="/admin/questionnaireResult/dividedResults" th:object="${metricsForResult}" method="post">
+            <div>
+                <input type="hidden" th:field="*{questionnaireId}"/>
+                <p class="fs-5"
+                   th:text="'Pokaż wyniki podzielone ze względu na:'"></p>
+
+                <div th:each="question,questionStat : *{questionsForMetrics}">
+                    <input type="hidden" th:field="*{questionsForMetrics[__${questionStat.index}__].questionId}"/>
+
+                    <div class="col-10">
+                        <input type="radio" class="form-check-input me-2"
+                               th:field="*{questionIdForDivision}"
+                               th:value="*{questionsForMetrics[__${questionStat.index}__].questionId}"
+                               th:text="*{questionsForMetrics[__${questionStat.index}__].questionName}"
+                        />
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-secondary" name="divide">Podziel</button>
+        </form>
+        <br>
+        <br>
+        <br>-->
+
+        <div th:each="questionForResult:${questionForResults}">
+            <p class="fs-5"
+               th:text="'Pytanie nr ' + ${questionForResult.questionOrderNumber} + ' - ' + ${questionForResult.questionText}"></p>
+            <hr>
+
+            <div class="container" th:if="${questionForResult.questionType.name() != 'OPEN'}">
+                <div class="row">
+                    <div class="col">
+                        <table class=" p-3 table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>Odpowiedź</td>
+                                <td>Suma odpowiedzi</td>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr th:each="answerForResult:${questionForResult.getAnswersForResult()}">
+                                <td th:text="${answerForResult.answerText}">x</td>
+                                <td th:text="${answerForResult.answerCount}">x</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col">
+                        <div class="card chart-container" th:if="${questionForResult.questionType.name() == 'CLOSED_UNLIMITED'}">
+                            <canvas th:attr="id=${questionForResult.chartName}"></canvas>
+                            <script th:inline="javascript">
+                                chartName = /*[[${questionForResult.chartName}]]*/;
+                                chartLabels = /*[[${questionForResult.chartLabels}]]*/ ;
+                                chartData = /*[[${questionForResult.chartData}]]*/ ;
+                                legend = /*[[${questionForResult.questionName}]]*/ ;
+
+                                generateBarChart(chartName, chartLabels, chartData, legend )
+                            </script>
+                        </div>
+
+                        <div class="card chart-container" th:if="${questionForResult.questionType.name() == 'CLOSED_LIMITED'}">
+                            <canvas th:attr="id=${questionForResult.chartName}"></canvas>
+                            <script th:inline="javascript">
+                                chartName = /*[[${questionForResult.chartName}]]*/;
+                                chartLabels = /*[[${questionForResult.chartLabels}]]*/ ;
+                                chartData = /*[[${questionForResult.chartData}]]*/ ;
+                                legend = /*[[${questionForResult.questionName}]]*/ ;
+
+                                generatePieChart(chartName, chartLabels, chartData, legend )
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div th:if="${questionForResult.questionType.name == 'OPEN'}">
+                <p class="fs-7" th:text="'To jest pytanie otwarte'"></p>
+                <a th:href="'/admin/questionnaireResult/openAnswersResult?questionId=' + ${questionForResult.questionId}"
+                   class="btn btn-secondary">Zobacz odpowiedzi</a>
+            </div>
+
+
+            <br>
+            <br>
+            <br>
+        </div>
+
+
+
+        <a th:href="'/admin'"
+           class="btn btn-outline-dark">Powrót</a>
+    </fieldset>
+</div>
+
+</body>
+
+
+
+
+
+
+
+
+</html>

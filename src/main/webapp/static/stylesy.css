@@ -1,0 +1,25 @@
+.mystyle {
+    background-color: green;
+}
+
+td {
+    width: 100px;
+    border-left-color: blueviolet;
+    border-left-width: 6px;
+    border-radius: 5px;
+}
+input:checked {
+    background-color: #212529 !important;
+}
+
+.fieldError {
+    background-color: red !important;
+}
+
+.errorStyle {
+    background-color: #fac6c5 !important;
+    border-width: thick !important;
+    border-color: #ba1814 !important;
+    border-style: dot-dash !important;
+}
+

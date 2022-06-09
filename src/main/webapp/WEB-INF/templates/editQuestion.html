@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edycja pytania</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/stylesy.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+            crossorigin="anonymous"></script>
+</head>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<body>
+<div>
+
+    <form action="/admin/editQuestionnaire/saveQuestion" th:object="${questionEn}" method="post">
+        <ul th:if="${#fields.hasErrors('*')}" class="errorlist">
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+        </ul>
+        <div class="container mt-5">
+            <fieldset class="form-group border p-4">
+                <legend class="float-none w-auto px-2">Edycja pytania</legend>
+
+
+                <input type="hidden" th:field="*{questionnaireId}">
+                <div class="form-group row p-1">
+                    <label for="id" class="col-2 col-form-label">Id:</label>
+                    <div class="col-4">
+                        <input type="text" class="form-control" th:field="*{id}" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group row p-1">
+                    <label for="orderNumber" class="col-2 col-form-label">Kolejność:</label>
+                    <div class="col-4">
+                        <input type="text" class="form-control" th:field="*{orderNumber}" th:errorclass="fieldError">
+                    </div>
+                </div>
+
+                <div class="form-group row p-1">
+                    <label for="name" class="col-2 col-form-label">Nazwa:</label>
+                    <div class="col-4">
+                        <input type="text" class="form-control" th:field="*{name}">
+                    </div>
+                </div>
+                <div class="form-group row p-1">
+                    <label for="questionText" class="col-2 col-form-label">Treść:</label>
+                    <div class="col-4">
+                        <textarea class="form-control" rows="6" th:field="*{questionText}"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group row p-1">
+                    <label for="type" class="col-2 col-form-label">Typ:</label>
+                    <div class="col-4">
+                        <select class="form-select" th:field="*{type}">
+                            <option th:value="CLOSED_LIMITED">Jednokrotnego wyboru</option>
+                            <option th:value="CLOSED_UNLIMITED">Wielokrotnego wyboru</option>
+                            <option th:value="OPEN">Otwarte</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row p-1">
+                    <div class="col-2">Metryczka</div>
+                    <div class="col-4">
+                        <div>
+                            <input type="checkbox" class="form-check-input border-dark" th:field="*{metrics}">
+                            <label class="form-check-label" for="metrics">
+                                Tak
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group row pt-4">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-dark col-1" name="save">Zapisz</button>
+                        <a th:href="'/admin/editQuestionnaire?id='+*{questionnaireId}"
+                           class="btn border col-1">Powrot</a>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+
+
+        <div class="container mt-5">
+            <fieldset class="form-group border p-4">
+                <legend class="float-none w-auto px-2">Odpowiedzi</legend>
+
+                <table class="table table-striped ">
+                    <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Nazwa</td>
+                        <td>Treść</td>
+                        <td>Akcje</td>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="row,rowStat : *{answersById}">
+                        <input type="hidden" th:field="*{answersById[__${rowStat.index}__].questionId}"/>
+
+                        <td><input type="text" class="form-control" th:field="*{answersById[__${rowStat.index}__].id}"
+                                   readonly></td>
+                        <td><input type="text" class="form-control"
+                                   th:field="*{answersById[__${rowStat.index}__].name}"></td>
+                        <td><input type="text" class="form-control"
+                                   th:field="*{answersById[__${rowStat.index}__].answerText}"></td>
+                        <td>
+                            <button id="del" type="submit" class="btn" name="deleteAnswer" th:value="${rowStat.index}"><img
+                                    src="/static/img/icons8-trash-32.png"></button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <button id="na" type="submit" class="btn border" name="addAnswer">
+                    <img src="/static/img/icons8-add-32.png" title="Nowa odpowiedź"> Nowa odpowiedź
+                </button>
+
+
+            </fieldset>
+        </div>
+
+    </form>
+
+</div>
+</div>
+
+</body>
+
+<script th:if="${goTo}!=null">
+    var goToMy = '[[${goTo}]]';
+    document.getElementById(goToMy).scrollIntoView();
+</script>
+</html>

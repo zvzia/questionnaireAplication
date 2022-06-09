@@ -1,0 +1,10 @@
+.mystyle {
+    background-color: green;
+}
+
+td {
+    width: 100px;
+    border-left-color: blueviolet;
+    border-left-width: 6px;
+    border-radius: 5px;
+}
