@@ -72,7 +72,7 @@
 </div>
 
 
-<div class="container mt-5">
+<div class="container mt-5" th:if="${questionnaireEn.id} != null">
     <fieldset class="form-group border p-4" th:object="${questionnaireEn}">
         <legend class="float-none w-auto px-2">Pytania</legend>
 
