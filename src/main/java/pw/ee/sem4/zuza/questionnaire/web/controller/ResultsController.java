@@ -10,15 +10,10 @@ import pw.ee.sem4.zuza.questionnaire.dao.QuestionnaireEn;
 import pw.ee.sem4.zuza.questionnaire.serwices.*;
 import pw.ee.sem4.zuza.questionnaire.web.model.MetricsForResult;
 import pw.ee.sem4.zuza.questionnaire.web.model.QuestionForResult;
-import pw.ee.sem4.zuza.questionnaire.web.model.QuestionForWeb;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+
 
 @Controller
 public class ResultsController {
