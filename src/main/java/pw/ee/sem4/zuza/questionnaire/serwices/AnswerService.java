@@ -35,9 +35,6 @@ public class AnswerService {
         answerEnRepository.saveAndFlush(answerEn);
     }
 
-    public void deleteAnswerFromDB(AnswerEn answerEn) {
-        answerEnRepository.delete(answerEn);
-    }
 
     public void deleteAnswerFromDBById(Integer id) {
         answerEnRepository.deleteById(id);

@@ -61,10 +61,6 @@ public class CompleteAnswerService {
         return completeAnswersEns.get(completeAnswersEns.size() - 1).getQuestionId();
     }
 
-    public Integer getAnswerCountByAnswerId(Integer answerId) {
-
-        return null;
-    }
 
     public QuestionForWeb fillFromCompleteAnswer(QuestionForWeb questionForWeb, Cookie myCookie) {
         ArrayList<CompleteAnswersEn> completeAnswersEns = completeAnswersEnRepository.findByIntervieweeIdAndQuestionId(myCookie.getValue(), questionForWeb.getQuestionId());

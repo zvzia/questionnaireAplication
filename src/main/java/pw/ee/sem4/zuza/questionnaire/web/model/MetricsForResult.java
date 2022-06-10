@@ -5,15 +5,7 @@ import java.util.ArrayList;
 public class MetricsForResult {
     int questionnaireId;
     ArrayList<QuestionForResult> questionsForMetrics;
-    Integer questionIdForDivision;
 
-    public Integer getQuestionIdForDivision() {
-        return questionIdForDivision;
-    }
-
-    public void setQuestionIdForDivision(Integer questionIdForDivision) {
-        this.questionIdForDivision = questionIdForDivision;
-    }
 
     public ArrayList<QuestionForResult> getQuestionsForMetrics() {
         return questionsForMetrics;

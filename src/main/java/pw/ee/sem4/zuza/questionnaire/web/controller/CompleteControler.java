@@ -72,13 +72,6 @@ public class CompleteControler {
 
 
         //sprawdzanie czy ankieta nie została już wypełniona
-        /*int questionsInQuestionnaire = questionnaireEn.getQuestionsById().size();
-
-        if (completedQuestionCount != null && completedQuestionCount >= questionsInQuestionnaire) {
-            modelMap.put("errorMessage", "Ta ankieta już została przez Ciebie wypełniona");
-            return "questionnaireError";
-        }*/
-
         if (endCookie != null) {
             modelMap.put("errorMessage", "Ta ankieta już została przez Ciebie wypełniona");
             return "questionnaireError";
@@ -134,8 +127,7 @@ public class CompleteControler {
         //znalezione cookie dla tej konkretnej ankiety, szukam czy są już odpowiedzi
         Integer lastCompleteQuestionId = null;
         if (myCookie != null) {
-            //completedQuestionCount = completeQuestionnaireService.getCompletedQuestionCountForIntervieweeId(myCookie.getValue());
-            lastCompleteQuestionId = completeAnswerService.getLastCompleteQuestionByIntervieweeId(myCookie.getValue()); //TODO
+            lastCompleteQuestionId = completeAnswerService.getLastCompleteQuestionByIntervieweeId(myCookie.getValue());
         }
 
         //dodawanie cookie jesli nie przyszło z welcome page
@@ -160,15 +152,7 @@ public class CompleteControler {
 
         //sprawdzanie czy ankieta nie została już wypełniona
         int questionsInQuestionnaire = questionnaireEn.getQuestionsById().size();
-        /*if (completedQuestionCount != null && completedQuestionCount >= questionsInQuestionnaire) {
-            modelMap.put("errorMessage", "Ta ankieta już została przez Ciebie wypełniona");
-            return "questionnaireError";
-        }
-        ArrayList<QuestionEn> questionEns = questionService.getQuestionsByQuestionnaireIdSorted(questionnaireEn.getId());
-        if (lastCompleteQuestionId != null && lastCompleteQuestionId.equals(questionEns.get(questionEns.size() - 1).getId())) {
-            modelMap.put("errorMessage", "Ta ankieta już została przez Ciebie wypełniona");
-            return "questionnaireError";
-        }*/
+
         if (endCookie != null) {
             modelMap.put("errorMessage", "Ta ankieta już została przez Ciebie wypełniona");
             return "questionnaireError";

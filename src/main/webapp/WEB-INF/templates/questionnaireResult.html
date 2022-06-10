@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
@@ -20,25 +20,19 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
 
-    <!--<style>
-        .chart-container {
-            width: 50%;
-            height: 50%;
-
-        }
-    </style>-->
 
     <script>
-        var chartName ;
-        var chartLabels ;
-        var chartData ;
+        var chartName;
+        var chartLabels;
+        var chartData;
         var legend;
-        function generateBarChart(canvasName, labels, dane, legend ) {
+
+        function generateBarChart(canvasName, labels, dane, legend) {
             const ctx = document.getElementById(canvasName).getContext('2d');
             const myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels:labels,
+                    labels: labels,
                     datasets: [{
                         label: legend,
                         backgroundColor: 'rgb(156,187,239)',
@@ -58,7 +52,7 @@
             })
         }
 
-        function generatePieChart(canvasName, labels, dane, legend ) {
+        function generatePieChart(canvasName, labels, dane, legend) {
             const ctx = document.getElementById(canvasName).getContext('2d');
             const myChart = new Chart(ctx, {
                 type: 'pie',
@@ -84,30 +78,6 @@
 <div class="container mt-5">
     <fieldset class="form-group border p-4">
         <legend class="float-none w-auto px-3" th:text="'Wyniki dla ankiety: ' + ${questionnaireName}"></legend>
-        <!--<form action="/admin/questionnaireResult/dividedResults" th:object="${metricsForResult}" method="post">
-            <div>
-                <input type="hidden" th:field="*{questionnaireId}"/>
-                <p class="fs-5"
-                   th:text="'Pokaż wyniki podzielone ze względu na:'"></p>
-
-                <div th:each="question,questionStat : *{questionsForMetrics}">
-                    <input type="hidden" th:field="*{questionsForMetrics[__${questionStat.index}__].questionId}"/>
-
-                    <div class="col-10">
-                        <input type="radio" class="form-check-input me-2"
-                               th:field="*{questionIdForDivision}"
-                               th:value="*{questionsForMetrics[__${questionStat.index}__].questionId}"
-                               th:text="*{questionsForMetrics[__${questionStat.index}__].questionName}"
-                        />
-                    </div>
-                </div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-secondary" name="divide">Podziel</button>
-        </form>
-        <br>
-        <br>
-        <br>-->
 
         <div th:each="questionForResult:${questionForResults}">
             <p class="fs-5"
@@ -134,27 +104,29 @@
                         </table>
                     </div>
                     <div class="col">
-                        <div class="card chart-container" th:if="${questionForResult.questionType.name() == 'CLOSED_UNLIMITED'}">
+                        <div class="card chart-container"
+                             th:if="${questionForResult.questionType.name() == 'CLOSED_UNLIMITED'}">
                             <canvas th:attr="id=${questionForResult.chartName}"></canvas>
                             <script th:inline="javascript">
                                 chartName = /*[[${questionForResult.chartName}]]*/;
-                                chartLabels = /*[[${questionForResult.chartLabels}]]*/ ;
-                                chartData = /*[[${questionForResult.chartData}]]*/ ;
-                                legend = /*[[${questionForResult.questionName}]]*/ ;
+                                chartLabels = /*[[${questionForResult.chartLabels}]]*/;
+                                chartData = /*[[${questionForResult.chartData}]]*/;
+                                legend = /*[[${questionForResult.questionName}]]*/;
 
-                                generateBarChart(chartName, chartLabels, chartData, legend )
+                                generateBarChart(chartName, chartLabels, chartData, legend)
                             </script>
                         </div>
 
-                        <div class="card chart-container" th:if="${questionForResult.questionType.name() == 'CLOSED_LIMITED'}">
+                        <div class="card chart-container"
+                             th:if="${questionForResult.questionType.name() == 'CLOSED_LIMITED'}">
                             <canvas th:attr="id=${questionForResult.chartName}"></canvas>
                             <script th:inline="javascript">
                                 chartName = /*[[${questionForResult.chartName}]]*/;
-                                chartLabels = /*[[${questionForResult.chartLabels}]]*/ ;
-                                chartData = /*[[${questionForResult.chartData}]]*/ ;
-                                legend = /*[[${questionForResult.questionName}]]*/ ;
+                                chartLabels = /*[[${questionForResult.chartLabels}]]*/;
+                                chartData = /*[[${questionForResult.chartData}]]*/;
+                                legend = /*[[${questionForResult.questionName}]]*/;
 
-                                generatePieChart(chartName, chartLabels, chartData, legend )
+                                generatePieChart(chartName, chartLabels, chartData, legend)
                             </script>
 
                         </div>
@@ -175,20 +147,12 @@
             <br>
         </div>
 
-
-
         <a th:href="'/admin'"
            class="btn btn-outline-dark">Powrót</a>
     </fieldset>
 </div>
 
 </body>
-
-
-
-
-
-
 
 
 </html>

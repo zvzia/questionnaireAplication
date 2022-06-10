@@ -57,30 +57,4 @@ public class QuestionForResultService {
         return questionForResult;
     }
 
-    /*public QuestionForResult builtDividedQuestionForResultFromQuestionEn(QuestionEn questionEn, Integer metricsQuestionId){
-        QuestionForResult questionForResult = new QuestionForResult();
-        questionForResult.setQuestionnaireId(questionEn.getQuestionnaireId());
-        questionForResult.setQuestionnaireName(questionaireService.getQuestionnaireById(questionEn.getQuestionnaireId()).getName());
-        questionForResult.setQuestionId(questionEn.getId());
-        questionForResult.setQuestionOrderNumber(questionEn.getOrderNumber());
-        questionForResult.setQuestionType(questionEn.getType());
-        questionForResult.setQuestionText( questionEn.getQuestionText());
-        ArrayList<AnswerForResult> answerForResults = new ArrayList<>();
-        for (AnswerEn answerEn : questionEn.getAnswersById()) {
-            AnswerForResult answerForResult = new AnswerForResult();
-            answerForResult.setAnswerId(answerEn.getId());
-            answerForResult.setAnswerText(answerEn.getAnswerText());
-            answerForResult.setAnswerCount(completeAnswersEnRepository.getAnswerCountByAnswerId(answerEn.getId()));
-            answerForResults.add(answerForResult);
-        }
-        questionForResult.setAnswersForResult(answerForResults);
-        questionForResult.setMetrics(questionEn.getMetrics());
-        questionForResult.setQuestionName(questionEn.getName());
-
-        return questionForResult;
-    }
-
-    private Integer getAnswerCountByAnswerIdAndMetrics(){
-
-    }*/
 }

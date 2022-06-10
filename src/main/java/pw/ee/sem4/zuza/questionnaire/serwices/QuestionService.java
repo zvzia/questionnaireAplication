@@ -36,9 +36,6 @@ public class QuestionService {
         questionEnRepository.saveAndFlush(questionEn);
     }
 
-    public void deleteQuestionFromDB(QuestionEn questionEn) {
-        questionEnRepository.delete(questionEn);
-    }
 
     public void deleteQuestionFromDBById(Integer id) {
         questionEnRepository.deleteById(id);

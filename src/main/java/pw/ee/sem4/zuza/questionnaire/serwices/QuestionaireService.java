@@ -9,7 +9,6 @@ package pw.ee.sem4.zuza.questionnaire.serwices;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pw.ee.sem4.zuza.questionnaire.dao.QuestionEn;
 import pw.ee.sem4.zuza.questionnaire.dao.QuestionnaireEn;
 import pw.ee.sem4.zuza.questionnaire.dao.QuestionnaireEnRepository;
 
@@ -27,7 +26,7 @@ public class QuestionaireService {
     }
 
 
-    public List<QuestionnaireEn> getAllQuestionnairs() {
+    public List<QuestionnaireEn> getAllQuestionnaires() {
         List<QuestionnaireEn> questionnaireEnList = questionnaireEnRepository.findAll();
         return questionnaireEnList;
     }
@@ -35,30 +34,7 @@ public class QuestionaireService {
     public QuestionnaireEn getQuestionnaireById(int id) {
         Optional<QuestionnaireEn> questionnaireEn = questionnaireEnRepository.findById(id);
 
-        if (questionnaireEn.isPresent()) {
-            System.err.println("=====q1id:"+questionnaireEn.get().getId());
-            System.err.println("=====size:"+questionnaireEn.get().getQuestionsById().size());
-
-           /*
-           dodawanie podrekordów
-
-            QuestionEn questionEn=new QuestionEn();
-            questionEn.setName("nazwa2");
-            questionEn.setType("typ");
-            questionEn.setMetrics(false);
-            questionEn.setQuestionText("sgsgs");
-
-           questionnaireEn.get().getQuestionsById().add(questionEn);
-            questionEn.setQuestionnaireByQuestionnaireId( questionnaireEn.get());*/
-
-//            questionnaireEnRepository.saveAndFlush(questionnaireEn.get());
-
-//          questionnaireEn.get().getQuestionsById().remove(1);     usuwanie pytań
-//            questionnaireEnRepository.saveAndFlush(questionnaireEn.get());
-            return questionnaireEn.get();
-        } else {
-            return null;
-        }
+        return questionnaireEn.orElse(null);
     }
 
     public void saveQuestionnaireToDB(QuestionnaireEn questionnaireEn) {

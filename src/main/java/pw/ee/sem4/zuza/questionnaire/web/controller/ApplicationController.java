@@ -43,7 +43,7 @@ public class ApplicationController {
     @RequestMapping({"/admin", "/admin/questionnaireList"})
     public String showSeedstarters(ModelMap modelMap) {
 
-        List<QuestionnaireEn> allQuestionnairs = questionaireService.getAllQuestionnairs();
+        List<QuestionnaireEn> allQuestionnairs = questionaireService.getAllQuestionnaires();
         modelMap.put("allQuestionnairs", allQuestionnairs);
 
         log.debug("Lista ankiet" + modelMap);

@@ -20,19 +20,7 @@ public class CompleteQuestionnaireService {
     public Integer getCompletedQuestionCountForIntervieweeId(String intervieweeId) {
         List <CompleteAnswersEn> completeAnswersEn = completeAnswersEnRepository.findByIntervieweeId(intervieweeId);
 
-        //TODO nie uwzglednione wielokrotnego wyboru
         return completeAnswersEn.size();
     }
 
-    public Integer getLastCompletedQuestion(String intervieweeId) {
-        List <CompleteAnswersEn> completeAnswersEn = completeAnswersEnRepository.findByIntervieweeId(intervieweeId);
-
-
-        return completeAnswersEn.size();
-    }
-
-    public List<CompleteAnswersEn> getAllCompleteAnswers() {
-        List<CompleteAnswersEn> completeAnswersEns = completeAnswersEnRepository.findAll();
-        return completeAnswersEns;
-    }
 }
